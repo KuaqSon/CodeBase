@@ -44,6 +44,7 @@
     <Compile Include="Commons\Disposable.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Interfaces\IBaseHttpClient.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IEmailSender.cs" />
     <Compile Include="Interfaces\ISpecification.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="ValueObjects\BaseResponseData.cs" />
     <Compile Include="ValueObjects\Events\EventResponseData.cs" />
     <Compile Include="ValueObjects\Events\EventRequestData.cs" />
+    <Compile Include="ValueObjects\RequestOption.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
