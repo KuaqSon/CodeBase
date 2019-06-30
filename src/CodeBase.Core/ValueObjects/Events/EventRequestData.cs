@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Core.Values.Events
+﻿namespace CodeBase.Core.ValueObjects.Events
 {
     public class EventRequestData : BaseRequestData
     {

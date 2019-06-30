@@ -1,4 +1,4 @@
-﻿using CodeBase.Core.Values.Events;
+﻿using CodeBase.Core.ValueObjects.Events;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

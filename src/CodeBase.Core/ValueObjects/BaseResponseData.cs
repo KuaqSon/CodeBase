@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Core.Values
+﻿namespace CodeBase.Core.ValueObjects
 {
     public class BaseResponseData
     {

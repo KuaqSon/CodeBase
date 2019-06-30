@@ -53,10 +53,10 @@
     <Compile Include="Services\Events\EventServices.cs" />
     <Compile Include="Services\Events\IEventServices.cs" />
     <Compile Include="Specifications\BaseSpecification.cs" />
-    <Compile Include="Values\BaseRequestData.cs" />
-    <Compile Include="Values\BaseResponseData.cs" />
-    <Compile Include="Values\Events\EventResponseData.cs" />
-    <Compile Include="Values\Events\EventRequestData.cs" />
+    <Compile Include="ValueObjects\BaseRequestData.cs" />
+    <Compile Include="ValueObjects\BaseResponseData.cs" />
+    <Compile Include="ValueObjects\Events\EventResponseData.cs" />
+    <Compile Include="ValueObjects\Events\EventRequestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
