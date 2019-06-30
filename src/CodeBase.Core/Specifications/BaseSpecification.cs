@@ -17,6 +17,7 @@ namespace CodeBase.Core.Specifications
         public List<string> IncludeStrings { get; } = new List<string>();
         public Expression<Func<T, object>> OrderBy { get; private set; }
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
+        public Expression<Func<T, object>> GroupBy { get; private set; }
 
         public int Take { get; private set; }
         public int Skip { get; private set; }
@@ -47,6 +48,11 @@ namespace CodeBase.Core.Specifications
         protected virtual void ApplyOrderByDescending(Expression<Func<T, object>> orderByDescendingExpression)
         {
             OrderByDescending = orderByDescendingExpression;
+        }
+
+        protected virtual void ApplyGroupBy(Expression<Func<T, object>> groupByExpression)
+        {
+            GroupBy = groupByExpression;
         }
     }
 }
