@@ -33,9 +33,12 @@ namespace CodeBase.Core.Specifications
             IncludeStrings.Add(includeString);
         }
 
-        protected virtual void ApplyPaging(int skip, int take)
+        protected virtual void ApplyPaging(int current, int take)
         {
-            Skip = skip;
+            if (current < 1)
+                current = 1;
+
+            Skip = (current - 1) * take;
             Take = take;
             IsPagingEnabled = true;
         }

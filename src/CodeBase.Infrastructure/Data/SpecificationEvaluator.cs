@@ -43,8 +43,8 @@ namespace CodeBase.Infrastructure.Data
             // Apply paging if enabled
             if (specification.IsPagingEnabled)
             {
-                query = query.Skip(specification.Skip)
-                             .Take(specification.Take);
+                query = query.Skip(() => specification.Skip)
+                             .Take(() => specification.Take);
             }
 
             return query;
