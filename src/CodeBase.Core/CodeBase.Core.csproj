@@ -58,7 +58,11 @@
     <Compile Include="ValueObjects\BaseResponseData.cs" />
     <Compile Include="ValueObjects\Events\EventResponseData.cs" />
     <Compile Include="ValueObjects\Events\EventRequestData.cs" />
+    <Compile Include="ValueObjects\ExceptionResponse.cs" />
+    <Compile Include="ValueObjects\RequestContext.cs" />
     <Compile Include="ValueObjects\RequestOption.cs" />
+    <Compile Include="ValueObjects\ResponseContext.cs" />
+    <Compile Include="ValueObjects\UnAuthorizedResponseData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />

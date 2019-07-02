@@ -5,10 +5,10 @@ namespace CodeBase.Core.Interfaces
 {
     public interface IBaseHttpClient
     {
-        Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request, RequestOption option = null)
+        Task<ResponseContext<TResponse>> PostAsync<TRequest, TResponse>(string url, RequestContext<TRequest> requestContext, RequestOption option = null)
             where TRequest : BaseRequestData
             where TResponse : BaseResponseData;
 
-        Task<TResponse> GetAsync<TResponse>(string url, RequestOption option = null);
+        Task<ResponseContext<TResponse>> GetAsync<TResponse>(string url, RequestOption option = null) where TResponse : BaseResponseData;
     }
 }

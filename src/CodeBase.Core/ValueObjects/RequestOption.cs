@@ -2,5 +2,6 @@
 {
     public class RequestOption
     {
+        public bool SkipAuth { get; set; }
     }
 }
