@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Core.ValueObjects
 {
-    public class BaseResponseData
+    public class BaseResponseData : IResponseData
     {
         
     }

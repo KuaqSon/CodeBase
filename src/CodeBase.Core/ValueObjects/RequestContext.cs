@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Core.ValueObjects
 {
-    public class RequestContext<T> where T : BaseRequestData
+    public class RequestContext<T> where T : IRequestData
     {
         public RequestContext()
         {

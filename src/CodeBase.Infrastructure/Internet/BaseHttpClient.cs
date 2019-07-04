@@ -23,16 +23,51 @@ namespace CodeBase.Infrastructure.Internet
             UpdateHeader("content-type", "application/json; charset=utf-8");
         }
 
-        public Task<ResponseContext<TResponse>> GetAsync<TResponse>(string url, RequestOption option = null) where TResponse : BaseResponseData
+        public async Task<ResponseContext<TResponse>> GetAsync<TResponse>(string url, RequestOption option = null)
+            where TResponse : IResponseData
         {
-            throw new NotImplementedException();
+            var req = new RestRequest(CallTo(url));
+            if (option?.RequestParams?.Keys?.Count > 0)
+            {
+                foreach (var pair in option.RequestParams)
+                {
+                    req.AddQueryParameter(pair.Key, pair.Value.ToString(), true);
+                }
+            }
+
+            var res = await Client.ExecuteTaskAsync<ResponseContext<TResponse>>(req);
+
+            return ProcessResult(res);
         }
 
         public async Task<ResponseContext<TResponse>> PostAsync<TRequest, TResponse>(string url, RequestContext<TRequest> requestContext, RequestOption option = null)
-            where TRequest : BaseRequestData
-            where TResponse : BaseResponseData
+            where TRequest : IRequestData
+            where TResponse : IResponseData
         {
-            var req = new RestRequest(CallTo(url), Method.POST);
+            var req = new RestRequest(CallTo(url));
+            if (option == null)
+            {
+                req.Method = Method.POST;
+            }
+            else
+            {
+                switch (option.Method)
+                {
+                    case RequestMethod.Delete:
+                        req.Method = Method.DELETE;
+                        break;
+                    case RequestMethod.Patch:
+                        req.Method = Method.PATCH;
+                        break;
+                    case RequestMethod.Put:
+                        req.Method = Method.PUT;
+                        break;
+                    default:
+                        req.Method = Method.POST;
+                        break;
+                }
+            }
+
             req.AddParameter("application/json; charset=utf-8", JsonConvert.SerializeObject(requestContext), ParameterType.RequestBody);
 
             if (!option?.SkipAuth ?? false)
@@ -43,7 +78,8 @@ namespace CodeBase.Infrastructure.Internet
             return ProcessResult(res);
         }
 
-        private ResponseContext<TResponse> ProcessResult<TResponse>(IRestResponse<ResponseContext<TResponse>> response) where TResponse : BaseResponseData
+        private ResponseContext<TResponse> ProcessResult<TResponse>(IRestResponse<ResponseContext<TResponse>> response)
+            where TResponse : IResponseData
         {
             if (response.ErrorException != null)
             {
@@ -61,14 +97,20 @@ namespace CodeBase.Infrastructure.Internet
 
             if (response.IsSuccessful)
             {
-                
+                var content = JsonConvert.DeserializeObject<TResponse>(response.Content);
+                return new ResponseContext<TResponse>(content)
+                {
+                    StatusCode = HttpStatusCode.OK
+                };
             }
 
+            // api throws exception
             var error = JsonConvert.DeserializeObject<ExceptionResponse>(response.Content);
             return new ResponseContext<TResponse>
             {
                 IsError = true,
                 StatusCode = HttpStatusCode.InternalServerError,
+                Error = error
             };
         }
 
