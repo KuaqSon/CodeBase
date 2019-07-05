@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\Disposable.cs" />
+    <Compile Include="Commons\IConfiguration.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Interfaces\IBaseHttpClient.cs" />

@@ -1,14 +1,12 @@
-﻿using CodeBase.Core.Interfaces;
+﻿using CodeBase.Core.Commons;
+using CodeBase.Core.Interfaces;
 using CodeBase.Core.ValueObjects;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using Newtonsoft.Json;
 
 namespace CodeBase.Infrastructure.Internet
 {
@@ -17,9 +15,9 @@ namespace CodeBase.Infrastructure.Internet
         private static readonly RestClient Client = new RestClient();
         protected abstract string RoutePrefix { get; }
 
-        protected BaseHttpClient(string uri)
+        protected BaseHttpClient(IConfiguration config)
         {
-            Client.BaseUrl = new Uri(uri.TrimEnd('/') + "/");
+            Client.BaseUrl = new Uri(config.ApiUrl.TrimEnd('/') + "/");
             UpdateHeader("content-type", "application/json; charset=utf-8");
         }
 
