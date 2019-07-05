@@ -151,14 +151,14 @@ namespace CodeBase.Infrastructure.Internet
 
         private string CallTo(string url) => RoutePrefix.TrimEnd('/') + "/" + url.TrimStart('/');
 
-        private string GetQueryString(object obj)
-        {
-            var properties = from p in obj.GetType().GetProperties()
-                let value = p.GetValue(obj, null)
-                where value != null
-                select p.Name + "=" + HttpUtility.UrlEncode(value.ToString());
+        //private string GetQueryString(object obj)
+        //{
+        //    var properties = from p in obj.GetType().GetProperties()
+        //        let value = p.GetValue(obj, null)
+        //        where value != null
+        //        select p.Name + "=" + HttpUtility.UrlEncode(value.ToString());
 
-            return string.Join("&", properties.ToArray());
-        }
+        //    return string.Join("&", properties.ToArray());
+        //}
     }
 }
