@@ -16,6 +16,7 @@ namespace CodeBase.Api
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ServiceConfig.Configure();
+            DependencyConfig.Configure();
         }
     }
 }
