@@ -51,9 +51,10 @@
     <Compile Include="Interfaces\ISpecification.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Events\IEventRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
-    <Compile Include="Services\Events\EventServices.cs" />
-    <Compile Include="Services\Events\IEventServices.cs" />
+    <Compile Include="Services\Event\EventService.cs" />
+    <Compile Include="Services\Event\IEventService.cs" />
     <Compile Include="Specifications\BaseSpecification.cs" />
     <Compile Include="ValueObjects\BaseRequestData.cs" />
     <Compile Include="ValueObjects\BaseResponseData.cs" />
@@ -72,7 +73,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Extensions\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

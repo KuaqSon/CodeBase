@@ -67,6 +67,7 @@
     <Compile Include="Data\DbFactory.cs" />
     <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\IDbFactory.cs" />
+    <Compile Include="Data\Repositories\EventRepository.cs" />
     <Compile Include="Data\SpecificationEvaluator.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="Internet\BaseHttpClient.cs" />

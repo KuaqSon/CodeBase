@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CodeBase.Core.Services.Events
+namespace CodeBase.Core.Services.Event
 {
-    public interface IEventServices
+    public interface IEventService
     {
         Task<List<EventResponseData>> GetAllEventsAsync(EventRequestData request);
         Task<EventResponseData> AddEventAsync(EventRequestData request);
