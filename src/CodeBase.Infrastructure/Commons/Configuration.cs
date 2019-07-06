@@ -5,7 +5,7 @@ namespace CodeBase.Infrastructure.Commons
 {
     public class Configuration : IConfiguration
     {
-        private string ValueOf(string key) => ConfigurationManager.AppSettings["key"];
+        private string ValueOf(string key) => ConfigurationManager.AppSettings[key];
 
         public string ApiUrl => ValueOf("ApiUrl");
     }
