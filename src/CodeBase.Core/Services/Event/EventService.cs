@@ -20,10 +20,15 @@ namespace CodeBase.Core.Services.Event
 
         public async Task<EventResponseData> AddEventAsync(EventRequestData request)
         {
-            _eventRepository.Add(new Entities.Event());
+            var @event = _eventRepository.Add(new Entities.Event
+            {
+                Name = request.Name,
+                Date = request.Date
+            });
+
             await _unitOfWork.CommitAsync();
 
-            throw new NotImplementedException();
+            return new EventResponseData { Id = @event.Id };
         }
 
         public Task<List<EventResponseData>> GetAllEventsAsync(EventRequestData request)
