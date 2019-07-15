@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace CodeBase.Api.Controllers
 {
-    [RoutePrefix("events")]
+    [RoutePrefix("api/events")]
     public class EventApiController : BaseApiController
     {
         private readonly IEventService _eventService;
@@ -16,7 +16,7 @@ namespace CodeBase.Api.Controllers
             _eventService = eventService;
         }
 
-        [HttpGet, Route("add")]
+        [HttpPost, Route("add")]
         public async Task<ResponseContext<EventResponseData>> AddEventAsync(RequestContext<EventRequestData> request)
         {
             var context = await _eventService.AddEventAsync(request.Payload);
