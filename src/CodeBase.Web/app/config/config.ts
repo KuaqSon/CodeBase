@@ -102,6 +102,19 @@ export default {
           component: './Welcome',
         },
         {
+          path: '/account',
+          name: 'account',
+          icon: 'user',
+          routes: [
+            {
+              path: '/account/user',
+              name: 'user',
+              icon: 'user',
+              component: './Account/User',
+            },
+          ],
+        },
+        {
           component: './404',
         },
       ],
