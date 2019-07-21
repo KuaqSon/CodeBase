@@ -1,7 +1,13 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
+import { TableListData } from '@/data';
 
 import { queryCurrent, query as queryUsers } from '@/services/user';
+
+// export interface StateType {
+//   data: TableListData;
+//   currentUser: any;
+// }
 
 export interface CurrentUser {
   avatar?: string;
@@ -17,6 +23,7 @@ export interface CurrentUser {
 }
 
 export interface UserModelState {
+  data?: TableListData;
   currentUser?: CurrentUser;
 }
 
@@ -26,10 +33,12 @@ export interface UserModelType {
   effects: {
     fetch: Effect;
     fetchCurrent: Effect;
+    all: Effect;
   };
   reducers: {
     saveCurrentUser: Reducer<UserModelState>;
     changeNotifyCount: Reducer<UserModelState>;
+    storeUsers: Reducer<UserModelState>;
   };
 }
 
@@ -38,6 +47,10 @@ const UserModel: UserModelType = {
 
   state: {
     currentUser: {},
+    data: {
+      list: [],
+      pagination: {},
+    },
   },
 
   effects: {
@@ -52,6 +65,13 @@ const UserModel: UserModelType = {
       const response = yield call(queryCurrent);
       yield put({
         type: 'saveCurrentUser',
+        payload: response,
+      });
+    },
+    *all(_, { call, put }) {
+      const response = yield call(queryUsers);
+      yield put({
+        type: 'storeUsers',
         payload: response,
       });
     },
@@ -77,6 +97,12 @@ const UserModel: UserModelType = {
           notifyCount: action.payload.totalCount,
           unreadCount: action.payload.unreadCount,
         },
+      };
+    },
+    storeUsers(state, { payload: { data } }) {
+      return {
+        ...state,
+        data: data,
       };
     },
   },

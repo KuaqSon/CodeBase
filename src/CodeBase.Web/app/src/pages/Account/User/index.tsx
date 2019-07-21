@@ -20,8 +20,11 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormComponentProps } from 'antd/lib/form';
 import { Dispatch } from 'redux';
 import StandardTable, { StandardTableColumnProps } from '@/components/StandardTable';
-import { TableListPagination, TableListItem, TableListParams } from '@/data';
+import { TableListPagination, TableListItem, TableListParams, TableListData } from '@/data';
 import { SorterResult } from 'antd/es/table';
+import { connect } from 'dva';
+import { UserModelState } from '@/models/user';
+// import { IUserTableItem, IUserColumnProps } from "./user";
 const getValue = (obj: { [x: string]: string[] }) =>
   Object.keys(obj)
     .map(x => obj[x])
@@ -30,7 +33,7 @@ const getValue = (obj: { [x: string]: string[] }) =>
 interface IUserListProps extends FormComponentProps {
   dispatch: Dispatch<any>;
   loading: boolean;
-  UserList: any; //StateType;
+  data: TableListData;
 }
 
 interface IUserListState {
@@ -53,11 +56,12 @@ class UserList extends Component<IUserListProps, IUserListState> {
     },
     {
       title: 'Full name',
-      dataIndex: 'fullName',
+      dataIndex: 'name',
     },
     {
       title: 'Email',
       dataIndex: 'email',
+      render: (text, record: any) => <div>{record.email}</div>,
     },
     {
       title: 'Actions',
@@ -66,6 +70,12 @@ class UserList extends Component<IUserListProps, IUserListState> {
 
   componentDidMount() {
     console.log(`did mount`);
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'user/all',
+      payload: {},
+    });
   }
 
   handleStandardTableChange = (
@@ -93,7 +103,7 @@ class UserList extends Component<IUserListProps, IUserListState> {
     }
 
     dispatch({
-      type: 'user/fetch',
+      type: 'user/all',
       payload: params,
     });
   };
@@ -135,14 +145,43 @@ class UserList extends Component<IUserListProps, IUserListState> {
   }
 
   render() {
-    return <div>Users: todo</div>;
+    const { data, loading } = this.props;
+
+    const { selectedRows } = this.state;
+
+    // const menu = (
+    //   <Menu>
+    //     <Menu.Item key="remove">Remove</Menu.Item>
+    //     <Menu.Item key="approval">Approval</Menu.Item>
+    //   </Menu>
+    // );
+
+    return (
+      <PageHeaderWrapper title="Users">
+        <Card>
+          <StandardTable
+            selectedRows={selectedRows}
+            loading={loading}
+            data={data}
+            columns={this.columns}
+            onSelectRow={this.handleSelectRows}
+            onChange={this.handleStandardTableChange}
+          />
+        </Card>
+      </PageHeaderWrapper>
+    );
   }
 }
 
-// export default (): React.ReactNode => (
-//   <PageHeaderWrapper title="Users">
-//     <div>Todo</div>
-//   </PageHeaderWrapper>
-// );
+const mapStateToProps = ({
+  user: { data },
+  loading = false,
+}: {
+  user: UserModelState;
+  loading: boolean;
+}) => ({
+  data,
+  loading,
+});
 
-export default Form.create<IUserListProps>()(UserList);
+export default Form.create<IUserListProps>()(connect(mapStateToProps)(UserList));
